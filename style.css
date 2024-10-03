@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 10px;
+  width: 100vw;
+}
+
+.container {
+  text-align: center;
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin: 5px;
+}
+
+button {
+  padding: 8px 15px;
+  margin: 5px;
+}
+
+
+.search-result {
+  margin-top: 20px;
+}
+.result-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}

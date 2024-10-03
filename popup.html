@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dictionary Search</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10"><h3>Interpreter's Dictionary Search!!</h3></div>
+      <div class="col-md-10">
+
+        <input type="text" id="searchTerm" class="form-control" placeholder="Enter word or acronym">
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-10">
+         <button id="searchBtn"class="btn btn-primary btn-block">Search</button>
+      </div>
+    </div>
+    <div id="result" class="search-result"></div>
+
+    <!-- Share and Upload Section -->
+    <h4>Share or Save Result</h4>
+    <button id="shareEmail">Share via Email</button>
+    <button id="shareTwitter">Share on Twitter</button>
+
+    <!-- Button for Premium/Monetization -->
+    <h4>Upgrade for Premium Features</h4>
+    <button id="upgradeBtn">Upgrade Now</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
