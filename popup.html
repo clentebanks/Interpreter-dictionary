@@ -23,7 +23,42 @@
       </div>
     </div>
     <div id="result" class="search-result"></div>
+<!-- Cronómetro para Breaks -->
+<div id="timer-section" class="my-3">
+  <h4>Cronómetro de Descanso</h4>
+  <div>
+    <label for="break-duration" class="form-label">Duración del Descanso:</label>
+    <input type="number" id="break-duration" class="form-control" placeholder="Minutos" required>
+    <select id="duration-type" class="form-select my-2">
+      <option value="minutes">Minutos</option>
+      <option value="hours">Horas</option>
+    </select>
+  </div>
+  <div id="timer-display" class="display-3">00:00</div>
+  <button id="start-timer" class="btn btn-success">Iniciar</button>
+  <button id="reset-timer" class="btn btn-danger">Reiniciar</button>
+</div>
 
+<!-- Agenda de Reuniones -->
+<div id="agenda-section" class="my-3">
+  <h4>Agenda de Reuniones</h4>
+  <form id="agenda-form">
+    <div class="mb-3">
+      <label for="session-name" class="form-label">Nombre de la sesión</label>
+      <input type="text" class="form-control" id="session-name" required>
+    </div>
+    <div class="mb-3">
+      <label for="session-date" class="form-label">Fecha</label>
+      <input type="date" class="form-control" id="session-date" required>
+    </div>
+    <div class="mb-3">
+      <label for="session-time" class="form-label">Hora</label>
+      <input type="time" class="form-control" id="session-time" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Reunión</button>
+  </form>
+  <ul id="meeting-list" class="list-group mt-3"></ul>
+</div>
     <!-- Share and Upload Section -->
     <h4>Share or Save Result</h4>
     <button id="shareEmail">Share via Email</button>

@@ -28,7 +28,77 @@ document.getElementById('searchBtn').addEventListener('click', function() {
   }
 });
 
+/**************************************************************** */
+// Cronómetro para Breaks
+// Inicializa las variables del cronómetro
+let timer;
+let timeLeft;
 
+// Función para iniciar el cronómetro
+document.getElementById('start-timer').addEventListener('click', function() {
+  const breakDuration = parseInt(document.getElementById('break-duration').value);
+  const durationType = document.getElementById('duration-type').value;
+
+  // Convertir la duración a segundos
+  timeLeft = durationType === 'hours' ? breakDuration * 3600 : breakDuration * 60;
+
+  clearInterval(timer); // Limpiar cualquier cronómetro anterior
+
+  timer = setInterval(function() {
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      alert('¡Descanso terminado!');
+      document.getElementById('timer-display').textContent = '00:00'; // Reiniciar visualización
+    } else {
+      timeLeft--;
+      document.getElementById('timer-display').textContent = formatTime(timeLeft);
+    }
+  }, 1000);
+});
+
+// Función para reiniciar el cronómetro
+document.getElementById('reset-timer').addEventListener('click', function() {
+  clearInterval(timer);
+  timeLeft = 0; // Reiniciar el tiempo
+  document.getElementById('timer-display').textContent = '00:00';
+});
+
+// Función para formatear el tiempo
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+
+// Agenda para Reuniones
+document.getElementById('agenda-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const sessionName = document.getElementById('session-name').value;
+  const sessionDate = document.getElementById('session-date').value;
+  const sessionTime = document.getElementById('session-time').value;
+
+  //const dateTime = new Date(`${sessionDate}T${sessionTime}`).getTime();
+
+  // Crear alarma
+  //  chrome.alarms.create(`${sessionName}`, {
+  //    when: dateTime
+  //  });
+
+  const listItem = document.createElement('li');
+  listItem.className = 'list-group-item';
+  listItem.textContent = `${sessionName} - ${sessionDate} ${sessionTime}`;
+
+  document.getElementById('meeting-list').appendChild(listItem);
+
+  // Limpiar formulario
+  document.getElementById('agenda-form').reset();
+});
+
+
+
+/***************************************************************** */
 // Compartir por Email
 document.getElementById('shareEmail').addEventListener('click', function() {
   const result = document.getElementById('result').innerText;

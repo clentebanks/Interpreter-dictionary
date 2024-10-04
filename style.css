@@ -28,3 +28,20 @@ button {
   padding: 10px;
   margin-bottom: 10px;
 }
+body {
+  background-color: #f8f9fa;
+}
+
+h2 {
+  color: #343a40;
+}
+
+#timer-display {
+  font-size: 48px;
+  text-align: center;
+}
+
+#meeting-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
