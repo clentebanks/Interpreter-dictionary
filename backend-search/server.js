@@ -7,14 +7,19 @@ app.use(cors());
 app.use(express.json());
 
 // Configurar la conexión con PostgreSQL
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'diccionario',
+//   password: 'test',
+//   port: 5432,
+// });
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'diccionario',
-  password: 'test',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,  // Usamos la variable de entorno DATABASE_URL para la conexión
+  ssl: {
+    rejectUnauthorized: false  // Render usa SSL para asegurar las conexiones
+  }
 });
-
 // Ruta para buscar palabras
 app.get('/buscar', async (req, res) => {
   const { query } = req.query;
