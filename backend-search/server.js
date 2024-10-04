@@ -15,7 +15,7 @@ app.use(express.json());
 //   port: 5432,
 // });
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,  // Usamos la variable de entorno DATABASE_URL para la conexión
+  connectionString: 'postgresql://interpreter_dictionary_kg3n_user:yTi83urcoHnOF98egDf0BpoRsrU5xizA@dpg-crvibu1u0jms73dogu2g-a.oregon-postgres.render.com/interpreter_dictionary_kg3n',  // Usamos la variable de entorno DATABASE_URL para la conexión
   ssl: {
     rejectUnauthorized: false  // Render usa SSL para asegurar las conexiones
   }
