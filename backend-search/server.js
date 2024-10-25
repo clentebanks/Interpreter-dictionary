@@ -8,11 +8,10 @@ app.use(express.json());
 
 // Configurar la conexión con PostgreSQL
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'diccionario',
-  password: 'test',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL, // Render establece esta variable automáticamente
+  ssl: {
+    rejectUnauthorized: false, // Necesario para Render en producción
+  },
 });
 
 // Ruta para buscar palabras
@@ -32,7 +31,7 @@ app.get('/buscar', async (req, res) => {
 });
 
 // Iniciar el servidor
-const port = 5000;
+const port = process.env.PORT || 5000; // Render asigna automáticamente un puerto, usa el de la variable de entorno
 app.listen(port, () => {
   console.log(`Servidor en ejecución en el puerto ${port}`);
 });
