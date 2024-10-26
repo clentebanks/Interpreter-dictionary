@@ -18,19 +18,18 @@ app.get('/', (req, res) => {
 
 // Search route
 app.get('/buscar', async (req, res) => {
-  const { query } = req.query;
+  console.log('Request received at /buscar');
+  const { palabra } = req.query;
   try {
-    const result = await pool.query(
-      'SELECT * FROM palabras WHERE palabra ILIKE $1 OR acronimo IS TRUE AND palabra ILIKE $1',
-      [`%${query}%`]
-    );
+    const result = await pool.query('SELECT * FROM palabras WHERE palabra = $1', [palabra]);
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Database query error:', err);
+    res.status(500).json({ error: 'Internal Server Error', details: err.message });
   }
 });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
