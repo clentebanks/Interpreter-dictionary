@@ -1,5 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -10,7 +11,8 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-
+// Middleware to serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 // Root route
 app.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -27,6 +29,11 @@ app.get('/buscar', async (req, res) => {
     console.error('Database query error:', err);
     res.status(500).json({ error: 'Internal Server Error', details: err.message });
   }
+});
+
+// Route to serve the HTML file
+app.get('/popup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'popup.html'));
 });
 
 app.listen(port, () => {
