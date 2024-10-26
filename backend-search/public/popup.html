@@ -3,45 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Popup Data</title>
+  <title>Autocomplete Search Box</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .autocomplete-suggestions {
+      border: 1px solid #e4e4e4;
+      max-height: 150px;
+      overflow-y: auto;
     }
-    table, th, td {
-      border: 1px solid black;
-    }
-    th, td {
+    .autocomplete-suggestion {
       padding: 10px;
-      text-align: left;
+      cursor: pointer;
+      background-color: #fff;
+    }
+    .autocomplete-suggestion:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
-  <h1>Data from Database</h1>
-  <table id="data-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Palabra</th>
-        <th>Significado</th>
-        <th>Traduccion</th>
-        <th>Acronimo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data will be inserted here by JavaScript -->
-    </tbody>
-  </table>
+  <div class="container">
+    <h1 class="mt-4">Autocomplete Search Box</h1>
+    <div class="form-group">
+      <input type="text" id="search-box" class="form-control" placeholder="Search...">
+      <div id="suggestions" class="autocomplete-suggestions"></div>
+    </div>
+    <h2>Search Results</h2>
+    <table class="table table-bordered" id="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Palabra</th>
+          <th>Significado</th>
+          <th>Traduccion</th>
+          <th>Acronimo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here by JavaScript -->
+      </tbody>
+    </table>
+  </div>
 
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
   <script>
-    async function fetchData() {
-      try {
-        const response = await fetch('/data');
-        const data = await response.json();
-        const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchBox = document.getElementById('search-box');
+      const suggestionsContainer = document.getElementById('suggestions');
+      const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
 
+      async function fetchSuggestions(query) {
+        const response = await fetch(`/search?q=${query}`);
+        const data = await response.json();
+        return data;
+      }
+
+      searchBox.addEventListener('input', async () => {
+        const query = searchBox.value;
+        if (query.length < 2) {
+          suggestionsContainer.innerHTML = '';
+          return;
+        }
+
+        const suggestions = await fetchSuggestions(query);
+        suggestionsContainer.innerHTML = '';
+        suggestions.forEach(item => {
+          const suggestionElement = document.createElement('div');
+          suggestionElement.classList.add('autocomplete-suggestion');
+          suggestionElement.textContent = `${item.palabra} - ${item.significado}`;
+          suggestionElement.addEventListener('click', () => {
+            searchBox.value = item.palabra;
+            suggestionsContainer.innerHTML = '';
+            displayResults([item]);
+          });
+          suggestionsContainer.appendChild(suggestionElement);
+        });
+      });
+
+      function displayResults(data) {
+        tableBody.innerHTML = '';
         data.forEach(row => {
           const newRow = tableBody.insertRow();
           newRow.insertCell().textContent = row.id;
@@ -50,13 +95,8 @@
           newRow.insertCell().textContent = row.traduccion;
           newRow.insertCell().textContent = row.acronimo;
         });
-      } catch (error) {
-        console.error('Error fetching data:', error);
       }
-    }
-
-    window.onload = fetchData;
+    });
   </script>
 </body>
 </html>
-

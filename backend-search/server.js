@@ -18,15 +18,17 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// Search route
-app.get('/buscar', async (req, res) => {
-  console.log('Request received at /buscar');
-  const { palabra } = req.query;
+// Route to fetch matching data based on a search query
+app.get('/search', async (req, res) => {
+  const searchQuery = req.query.q;
   try {
-    const result = await pool.query('SELECT * FROM palabras WHERE palabra ILIKE $1 OR acronimo IS TRUE AND palabra ILIKE $1', [palabra]);
+    const result = await pool.query(
+      'SELECT * FROM palabras WHERE palabra ILIKE $1 OR significado ILIKE $1 OR traduccion ILIKE $1',
+      [`%${searchQuery}%`]
+    );
     res.json(result.rows);
   } catch (err) {
-    console.error('Database query error:', err);
+    console.error('Error fetching data:', err);
     res.status(500).json({ error: 'Internal Server Error', details: err.message });
   }
 });
