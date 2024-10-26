@@ -21,7 +21,7 @@ app.get('/buscar', async (req, res) => {
   console.log('Request received at /buscar');
   const { palabra } = req.query;
   try {
-    const result = await pool.query('SELECT * FROM palabras WHERE palabra = $1', [palabra]);
+    const result = await pool.query('SELECT * FROM palabras WHERE palabra ILIKE $1 OR acronimo IS TRUE AND palabra ILIKE $1', [palabra]);
     res.json(result.rows);
   } catch (err) {
     console.error('Database query error:', err);
