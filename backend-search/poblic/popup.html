@@ -3,72 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dictionary Search</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+  <title>Popup Data</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-10"><h3>Interpreter's Dictionary Search!!</h3></div>
-      <div class="col-md-10">
+  <h1>Data from Database</h1>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Palabra</th>
+        <th>Significado</th>
+        <th>Traduccion</th>
+        <th>Acronimo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
 
-        <input type="text" id="searchTerm" class="form-control" placeholder="Enter word or acronym">
-      </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-      <div class="col-md-10">
-         <button id="searchBtn"class="btn btn-primary btn-block">Search</button>
-      </div>
-    </div>
-    <div id="result" class="search-result"></div>
-<!-- Cronómetro para Breaks -->
-<div id="timer-section" class="my-3">
-  <h4>Cronómetro de Descanso</h4>
-  <div>
-    <label for="break-duration" class="form-label">Duración del Descanso:</label>
-    <input type="number" id="break-duration" class="form-control" placeholder="Minutos" required>
-    <select id="duration-type" class="form-select my-2">
-      <option value="minutes">Minutos</option>
-      <option value="hours">Horas</option>
-    </select>
-  </div>
-  <div id="timer-display" class="display-3">00:00</div>
-  <button id="start-timer" class="btn btn-success">Iniciar</button>
-  <button id="reset-timer" class="btn btn-danger">Reiniciar</button>
-</div>
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('/data');
+        const data = await response.json();
+        const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
 
-<!-- Agenda de Reuniones -->
-<div id="agenda-section" class="my-3">
-  <h4>Agenda de Reuniones</h4>
-  <form id="agenda-form">
-    <div class="mb-3">
-      <label for="session-name" class="form-label">Nombre de la sesión</label>
-      <input type="text" class="form-control" id="session-name" required>
-    </div>
-    <div class="mb-3">
-      <label for="session-date" class="form-label">Fecha</label>
-      <input type="date" class="form-control" id="session-date" required>
-    </div>
-    <div class="mb-3">
-      <label for="session-time" class="form-label">Hora</label>
-      <input type="time" class="form-control" id="session-time" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Agregar Reunión</button>
-  </form>
-  <ul id="meeting-list" class="list-group mt-3"></ul>
-</div>
-    <!-- Share and Upload Section -->
-    <h4>Share or Save Result</h4>
-    <button id="shareEmail">Share via Email</button>
-    <button id="shareTwitter">Share on Twitter</button>
+        data.forEach(row => {
+          const newRow = tableBody.insertRow();
+          newRow.insertCell().textContent = row.id;
+          newRow.insertCell().textContent = row.palabra;
+          newRow.insertCell().textContent = row.significado;
+          newRow.insertCell().textContent = row.traduccion;
+          newRow.insertCell().textContent = row.acronimo;
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
 
-    <!-- Button for Premium/Monetization -->
-    <h4>Upgrade for Premium Features</h4>
-    <button id="upgradeBtn">Upgrade Now</button>
-  </div>
-
-  <script src="popup.js"></script>
+    window.onload = fetchData;
+  </script>
 </body>
 </html>
