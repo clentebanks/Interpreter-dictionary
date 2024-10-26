@@ -1,4 +1,8 @@
 {
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1"
+  },
   "manifest_version": 3,
   "name": "Dictionary Search for Interpreters",
   "description": "Search for words, acronyms, meanings, and translations. Part of interpreter toolkit.",
