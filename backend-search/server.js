@@ -15,7 +15,7 @@ const pool = new Pool({
 app.use(express.static(path.join(__dirname, 'public')));
 // Root route
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Hello, World! Up And Running!!!');
 });
 
 // Route to fetch matching data based on a search query
