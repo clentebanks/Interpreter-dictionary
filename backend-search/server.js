@@ -10,15 +10,19 @@ const pool = new Pool({
     rejectUnauthorized: false
   }
 });
-
+// Ruta para buscar palabras
 app.get('/buscar', async (req, res) => {
-  const { palabra } = req.query;
+  const { query } = req.query;
+
   try {
-    const result = await pool.query('SELECT * FROM palabras WHERE palabra = $1', [palabra]);
+    const result = await pool.query(
+      'SELECT * FROM palabras WHERE palabra ILIKE $1 OR acronimo IS TRUE AND palabra ILIKE $1',
+      [`%${query}%`]
+    );
     res.json(result.rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Error en el servidor' });
   }
 });
 
