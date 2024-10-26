@@ -33,11 +33,11 @@
     <table class="table table-bordered" id="data-table">
       <thead>
         <tr>
-          <th>ID</th>
+          <!-- <th>ID</th> -->
           <th>Palabra</th>
           <th>Significado</th>
           <th>Traduccion</th>
-          <th>Acronimo</th>
+          <!-- <th>Acronimo</th> -->
         </tr>
       </thead>
       <tbody>
@@ -89,11 +89,11 @@
         tableBody.innerHTML = '';
         data.forEach(row => {
           const newRow = tableBody.insertRow();
-          newRow.insertCell().textContent = row.id;
+          // newRow.insertCell().textContent = row.id;
           newRow.insertCell().textContent = row.palabra;
           newRow.insertCell().textContent = row.significado;
           newRow.insertCell().textContent = row.traduccion;
-          newRow.insertCell().textContent = row.acronimo;
+          // newRow.insertCell().textContent = row.acronimo;
         });
       }
     });
