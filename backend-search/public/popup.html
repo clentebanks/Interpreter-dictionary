@@ -6,6 +6,7 @@
   <title>Interpreter Tools</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <style>
     .autocomplete-suggestions {
       border: 1px solid #e4e4e4;
@@ -23,8 +24,28 @@
   </style>
 </head>
 <body>
+  <header class="bg-info text-white text-center py-3">
+    <h1>Interpreter's Studio</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="index.html">Interpreter's Studio</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html#tools">Tools</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html#resources">Resources</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<section id="dictionary" class="hero-section bg-light text-center py-5">
   <div class="container">
-    <h1 class="mt-4">Interpreter Search Dictionary</h1>
+      <h2 class="display-4">Interpreter's Dictionary</h2>
+      <p class="lead">Access a comprehensive dictionary of terms and acronyms.</p>
+  </div>
+</section>
+  <div class="container">
     <div class="form-group">
       <input type="text" id="search-box" class="form-control" placeholder="Search...">
       <div id="suggestions" class="autocomplete-suggestions"></div>
@@ -45,7 +66,17 @@
       </tbody>
     </table>
   </div>
+  <section class="py-5 bg-light text-center">
+    <div class="container">
+        
+    </div>
+</section>
 
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <p>&copy; 2024 Interpreter's Studio. All rights reserved.</p>
+    </div>
+</footer>
   <!-- Bootstrap JS and dependencies -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
